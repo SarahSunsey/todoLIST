@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="cont">
+        <div class="head">
+            <h2>hello</h2>
+            <button class="log">Log in</button>
+            
+        </div>
+        <div id="date-time"></div>
+        <div class="TODAY" id="TODAY">
+            <h3>todo list</h3>
+            <div id="today">0%</div>
+            <div class="info">
+                <h4 class="pour"></h4>
+               
+            </div>
+        </div>
+
+        
+       
+        <div class="create">
+
+                <input maxlength="20" id="todonow" type="text" placeholder="enter here">
+                
+                <button onclick="adddiv()">ADD</button>
+               
+                
+            
+        </div>
+       
+    <div id="list"></div>    
+    </div>
+    
+</body>
+<script>
+    
+function Percentage(){
+    var divs = document.querySelectorAll('#list > div');
+  var totalDivs = divs.length;
+  var checkedDivs = 0;
+if(totalDivs==0){
+    today.textContent="0%"
+}
+else{
+  divs.forEach(function(div) {
+    var checkbox = div.querySelector('input[type="checkbox"]');
+    if (checkbox.checked) {
+      checkedDivs++;
+    }
+  });
+  let per=checkedDivs*100/totalDivs;
+  let today=document.getElementById('today');
+  today.textContent=per+"%";
+}}
+    function updateDateTime() {
+  var dateTimeElement = document.getElementById('date-time');
+
+  var currentDate = new Date();
+  var formattedDate = currentDate.toLocaleDateString();
+  var formattedTime = currentDate.toLocaleTimeString();
+
+  dateTimeElement.textContent = formattedDate + ' ' + formattedTime;
+}
+
+// Update the date and time every second
+setInterval(updateDateTime, 1000);
+function adddiv() {
+    if(document.getElementById('todonow').value){
+  let newDiv = document.createElement('div');
+  newDiv.classList.add('add');
+  let todo = document.getElementById('todonow').value; // Use .value to get the input value
+  let todoo = document.getElementById('todonow')
+  let h2 = document.createElement('h2'); // Fix variable name to 'h2'
+  h2.textContent = todo;
+  todoo.value='';
+
+  newDiv.appendChild(h2);
+
+  let newDiv2=document.createElement('div');
+  newDiv2.classList.add('buttons1')
+
+
+  let buttonDELETE = document.createElement('button');
+  let img=document.createElement('img');
+  img.src='traverser.png';
+  buttonDELETE.appendChild(img);
+
+  let check= document.createElement('input');
+  check.type='checkbox'
+    newDiv2.appendChild(buttonDELETE);
+
+    newDiv2.appendChild(check)
+
+    newDiv.appendChild(newDiv2)
+  var listElement = document.getElementById('list');
+  listElement.appendChild(newDiv);
+
+  var checkboxes = newDiv.querySelectorAll('input[type="checkbox"]');
+  checkboxes.forEach(function(checkbox) {
+    checkbox.addEventListener('change', Percentage);
+  });
+
+buttonDELETE.addEventListener('click', function() {
+    
+    var parentDiv = buttonDELETE.parentElement.parentElement;
+
+// Remove the parent div from its parent container
+
+    parentDiv.remove();
+ Percentage();
+  
+});
+}}
+
+
+    </script>
+</html>
